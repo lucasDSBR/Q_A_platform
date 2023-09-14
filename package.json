@@ -1,0 +1,23 @@
+{
+  "name": "q_a_platform",
+  "version": "1.0.0",
+  "description": "The platform for questions and answers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasDSBR/Q_A_platform.git"
+  },
+  "author": "LucasDSBR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasDSBR/Q_A_platform/issues"
+  },
+  "homepage": "https://github.com/lucasDSBR/Q_A_platform#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  }
+}
