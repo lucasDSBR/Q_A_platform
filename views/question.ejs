@@ -1,1 +1,31 @@
-<h1>Page of question</h1>
+<%- include('partials/header.ejs'); %>
+<body>
+	<%- include('partials/navbar.ejs'); %>
+	<div class="container">
+		<hr>
+		<h1><%= question.title%></h1>
+		<p><%= question.description %></p>
+		<hr>
+		<form method="POST" action="/respond">
+			<h3>Reply</h3>
+			<labe>Response:</labe>
+			<textarea placeholder="Write your respense..." class="form-control" name="bodyResponse"></textarea>
+			<input type="hidden" name="questionId" value="<%= question.id%>">
+			<br>
+			<button class="btn btn-primary" type="submit">Respond</button>
+		</form>
+		<hr>
+		<h3>Responses</h3>
+		<hr>
+		<% responses.forEach( response => {%>
+			<br>
+			<div class="card">
+				<div class="card-body">
+					<%= response.body%>
+				</div>
+
+			</div>
+		<%})%>
+	</div>
+</body>
+<%- include('partials/footer.ejs'); %>
