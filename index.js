@@ -5,7 +5,7 @@ const connection = require('./database/database');
 
 //Models
 const QuestionModel = require('./models/Question');
-
+const ResponseModel = require('./models/Response');
 //Database
 connection.authenticate().then(() => {
 	console.log("Connection with database OK");
@@ -49,15 +49,36 @@ app.get("/question/:id", (req, res) => {
 	var id = req.params.id;
 	QuestionModel.findOne({ where: {id: id} })
 	.then(question => {
-		if(question != undefined)
-			res.render('question');
-		else
-			res.redirect('/');
+		if(question != undefined){
+			ResponseModel.findAll({
+				where: { questionId: question.id },
+				order: [['id', 'DESC']]
+			}).then(responses => {
+				res.render('question', {
+					responses: responses,
+					question: question
+				});
+			});
+		}
+		else res.redirect('/');
 	}).catch(() =>{
 
 	});
 })
 
+app.post("/respond", (req, res) => {
+	var bodyResponse = req.body.bodyResponse;
+	var questionId = req.body.questionId
+	ResponseModel.create({
+		body: bodyResponse,
+		questionId: questionId
+	}).then(() => {
+		res.redirect(`/question/${questionId}`);
+	}).catch((error) => {
+		console.log('erro:'+error)
+	});
+
+})
 
 app.listen(8080, (error) => {
 	console.log("Server OK");
